@@ -1,0 +1,167 @@
+{
+  "supplierDataInsertDto": {
+    "supplierName": "接口{{$company.name}}",
+    "supplierCode": null,
+    "licensedProduct": "颅骨接骨板系统,颌面内固定系统,增材制造椎间融合器,多孔钽髋关节填充块,自稳型颈椎椎间融合器系统,多孔型椎体融合器,胸腰后路钉棒固定系统,颈椎前路钉板固定系统,颈椎椎体融合器系列,多孔型椎间融合器,器械套包系列,测试产品层级1-1,测试产品层级2-1,测试产品层级1-2,测试产品层级2-2",
+    "region": "华东",
+    "smallRegion": "北京",
+    "licensedStartTime": "2024-11-01",
+    "licensedEndTime": "2024-11-30",
+    "salesPerson": null,
+    "contractStartTime": "2024-11-01",
+    "contractEndTime": "2024-11-30",
+    "level": "招标",
+    "supplierType": null,
+    "customerCode": null,
+    "dealerManager": "法人",
+    "phone": null,
+    "email": null,
+    "orderManager": null,
+    "orderPhone": null,
+    "invoiceAddress": null,
+    "invoiceManager": null,
+    "invoicePhone": null,
+    "supplierAddress": "公司经营地址",
+    "warehouseAddress": null,
+    "newOrOld": null,
+    "grantRegion": null,
+    "remark1": null,
+    "remark2": null,
+    "companyTaxNumber": null,
+    "openBank": null,
+    "bankAccount": null,
+    "purchaseType": "寄售",
+    "rebateRatio": "销售激励政策",
+    "salesTarget": 2,
+    "payType": "现款",
+    "consignmentLimit": 1000,
+    "consignmentDepositRatio": 50
+  },
+  "supplierTargetInsertDtos": [
+    {
+      "year": "2024",
+      "month": "1"
+    },
+    {
+      "year": "2024",
+      "month": "2"
+    },
+    {
+      "year": "2024",
+      "month": "3"
+    },
+    {
+      "year": "2024",
+      "month": "4"
+    },
+    {
+      "year": "2024",
+      "month": "5"
+    },
+    {
+      "year": "2024",
+      "month": "6"
+    },
+    {
+      "year": "2024",
+      "month": "7"
+    },
+    {
+      "year": "2024",
+      "month": "8"
+    },
+    {
+      "year": "2024",
+      "month": "9"
+    },
+    {
+      "year": "2024",
+      "month": "10"
+    },
+    {
+      "year": "2024",
+      "month": "11"
+    },
+    {
+      "year": "2024",
+      "month": "12"
+    }
+  ],
+  "supplierHospitalInsertDtos": [],
+  "supplierQualificationsInsertDtos": [],
+  "supplierWarehouseInsertDtos": [
+    {
+      "warehouseName": "{{$company.name}}销售库位",
+      "warehouseAddress": "01",
+      "contacts": "1",
+      "tel": "15500000000"
+    },
+    {
+      "warehouseName": "{{$company.name}}工具库位",
+      "warehouseAddress": "02",
+      "contacts": "11",
+      "tel": "15500000000"
+    },
+    {
+      "warehouseName": "{{$company.name}}寄售库位",
+      "warehouseAddress": "03",
+      "contacts": "11",
+      "tel": "15500000000"
+    }
+  ],
+  "supplierCompanyInsertDtos": [],
+  "supplierReceivingAddressInsertDtos": [
+    {
+      "recAddress": "收货地址",
+      "recPerson": "收货人",
+      "recTel": "15500000000"
+    }
+  ],
+  "supplierDiscountRatioInsertDtos": [
+    {
+      "categoryId": "2",
+      "categoryName": "颅骨接骨板系统",
+      "productDiscountRatio": 10
+    },
+    {
+      "categoryId": "10",
+      "categoryName": "颌面内固定系统",
+      "productDiscountRatio": 10
+    },
+    {
+      "categoryId": "31",
+      "categoryName": "增材制造椎间融合器",
+      "productDiscountRatio": 10
+    },
+    {
+      "categoryId": "35",
+      "categoryName": "多孔钽髋关节填充块",
+      "productDiscountRatio": 10
+    },
+    {
+      "categoryId": "49",
+      "categoryName": "自稳型颈椎椎间融合器系统",
+      "productDiscountRatio": 10
+    },
+    {
+      "categoryId": "53",
+      "categoryName": "多孔型椎体融合器",
+      "productDiscountRatio": 10
+    },
+    {
+      "categoryId": "55",
+      "categoryName": "胸腰后路钉棒固定系统",
+      "productDiscountRatio": 10
+    },
+    {
+      "categoryId": "61",
+      "categoryName": "颈椎前路钉板固定系统",
+      "productDiscountRatio": 10
+    },
+    {
+      "categoryId": "65",
+      "categoryName": "颈椎椎体融合器系列",
+      "productDiscountRatio": 10
+    }
+  ]
+}
