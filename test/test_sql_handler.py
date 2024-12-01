@@ -1,12 +1,14 @@
 import unittest
 from common.sql.sql_handler import SQLHandler  # 假设你的类在 sql_handler.py 文件中
+from common.settings import get_db_config  # 假设你的数据库配置在 settings.py 文件中
 
 
 class TestSQLHandler(unittest.TestCase):
     def setUp(self):
-        # 设置测试数据库路径
-        self.sqlite_path = './test.db'
-        self.db = SQLHandler(sql_type='sqlite', config={'db_path': self.sqlite_path})
+        TEST_DB_CONFIG = {"sql_type": "sqlite",
+                          "config": {"db_path": "./test.db"}}
+        config = get_db_config(TEST_DB_CONFIG)  # 从 settings.py 中获取数据库配置
+        self.db = SQLHandler(sql_type=config['sql_type'], config=config['db_config'])
         self.db.create_cursor()
         # 清空数据库
         self.db.execute_sql('DROP TABLE IF EXISTS hospital;')

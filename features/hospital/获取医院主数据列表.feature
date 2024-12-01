@@ -5,11 +5,12 @@ Feature: 获取医院主数据列表
   Background:
     Given 系统已知医院列表"初始化医院主数据列表.sql"
 
-  @happy_path@P0
+#  @happy_path @P0
+  @framework_test
   Scenario: 成功获取医院主数据列表
     When 请求 POST /hospital/list payload {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
     Then 状态码:200
-    And 返回值JSON数据:"./testdata/jsons/成功获取医院主数据列表.json"
+    And 返回值JSON数据:"成功获取医院主数据列表.json"
 
   @pagenation@P1
   Scenario Outline: 分页查询医院数据
