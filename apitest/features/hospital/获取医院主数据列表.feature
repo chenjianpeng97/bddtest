@@ -4,16 +4,17 @@ Feature: 获取医院主数据列表
 
   Background:
     Given 系统已知医院列表"./testdata/sqls/初始化医院主数据列表.sql"
+    And 标准payload {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
 
   @happy_path@P0
   Scenario: 成功获取医院主数据列表
-    When 请求 POST /hospital/list payload {"hosptailName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
+    When 请求 POST /hospital/list payload {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
     Then 状态码:200
     And 返回值JSON数据:"./testdata/jsons/成功获取医院主数据列表.json"
 
   @pagenation@P1
   Scenario Outline: 分页查询医院数据
-    When 请求 POST /hospital/list Body {"hosptailName": "","hospitalCode": "","province": "","city": ""}
+    When 请求 POST /hospital/list Body {"hospitalName": "","hospitalCode": "","province": "","city": ""}
     And 分页设置 <分页策略>
     Then 状态码:200
     And 返回值JSON数据:<返回JSON>
@@ -33,11 +34,12 @@ Feature: 获取医院主数据列表
     And 返回值JSON数据:<返回JSON>
     Examples: 单条件搜索
       | 搜索条件                        | 返回JSON                                                           |
-      | {"hospitalName": "深圳市人民医院"  | $.data[0].HospitalName == "深圳市人民医院" and $.data.length() == 1     |
+      | {"hospitalName": "深圳市人民医院"} | $.data[0].HospitalName == "深圳市人民医院" and $.data.length() == 1     |
       | {"hospitalCode": "H004"}    | $.data[0].HospitalName == "广州中医药大学附属医院" and $.data.length() == 1 |
       | {"province": "广东"}          | $.data.length() == 2                                             |
       | {"city":"上海"}               | $.data.length() == 2                                             |
       | {"hospitalName": "不存在的医院名称" | $.data.length() == 0                                             |
+
     Examples: 组合条件搜索
       | 搜索条件                                                           | 返回JSON                                                       |
       | {"province": "广东","city":"深圳市"}}                               | $.data[0].HospitalName == "深圳市人民医院" and $.data.length() == 1 |

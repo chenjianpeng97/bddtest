@@ -17,19 +17,16 @@ from common.settings import PREFIX_URL as PREFIX
 from common.http.http_handler import Request
 
 
-# @when("管理员用户请求 POST /supplierData/addSupplierDetail Body '.../成功增加经销商.json'")
-@when("管理员用户请求 POST {path} Body '{json_path}'")
-def step_impl(context, path, json_path):
-    pass
+@given('标准payload {payload_data}')
+def step_impl(context, payload_data: str):
+    context.stander_payload = json.loads(payload_data)
 
 
 @when('请求 {method} {path} payload {payload_data}')
-def step_impl(context, method, path, payload_data):
-    # data = json.dumps(json.loads(
-    #     payload_data))
-    # print(type(data))
-    # print(data)
-    # 组装URL
+def step_impl(context, method, path, payload_data: str):
+    # 如果有stander_payload，payload覆盖或添加进去
+    if hasattr(context, 'stander_payload'):
+        payload_data = json.dumps(dict(context.stander_payload, **json.loads(payload_data)))
     request = Request(method=method, path=path, payload=payload_data)
     request.set_header(context=context)
     # 存储返回信息到context
@@ -44,10 +41,10 @@ def step_impl(context, status_code):
 
 @then('返回值JSON数据:"{json_file}"')
 def step_impl(context, json_file):
-    print(load_json_file(json_file))
-    print(type(load_json_file(json_file)))
-    print(context.response.json())
-    print(type(context.response.json()))
+    # 期望返回
+    print(f"期望返回{load_json_file(json_file)}")
+    # 实际返回
+    print(f"实际返回{context.response.json()}")
     assert context.response.json() == load_json_file(json_file)
 
 
@@ -55,29 +52,11 @@ if __name__ == '__main__':
     import requests
     import json
 
-    url = "http://127.0.0.1:5000/hospital/list"
-
-    payload = json.dumps({
-        "hospitalName": "",
-        "hospitalCode": "",
-        "province": "",
-        "city": "",
-        "pageNum": 1,
-        "pageSize": 10
-    })
-    print(payload)
+    data = json.loads('{"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}')
+    payload = {"hospitalName": "", "hospitalCode": "", "province": "", "city": "", "pageNum": 1, "pageSize": 10}
+    print(type(data))
     print(type(payload))
-    headers = {
-        'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiLlhazlj7jotKblj7c6MSIsInJuU3RyIjoiNzYzZGllWU5URG85bG9FakNpa242MG5lN3hzUEdPdmYiLCJ1c2VySWQiOjF9.GeOkfpxwm1g-MMIkGNoNHGzUDE8wXEYzINs8mIvfoog',
-        'Accept': '*/*',
-        'Host': '127.0.0.1:5000',
-        'Connection': 'keep-alive'
-    }
-
-    response = requests.request("POST", url, headers=headers, data=payload)
-
-    print(response.text)
-
+    print(data)
+    print(payload)
+    assert payload == data
     pass
