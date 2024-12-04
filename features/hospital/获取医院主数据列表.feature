@@ -4,27 +4,26 @@ Feature: 获取医院主数据列表
 
   Background:
     Given 系统已知医院列表"初始化医院主数据列表.sql"
+    And 标准payload {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
 
-#  @happy_path @P0
-  @framework_test
+  @happy_path@P0
   Scenario: 成功获取医院主数据列表
     When 请求 POST /hospital/list payload {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
     Then 状态码:200
     And 返回值JSON数据:"成功获取医院主数据列表.json"
 
-  @pagenation@P1
+  @pagination@P1
   Scenario Outline: 分页查询医院数据
-    When 请求 POST /hospital/list payload {"hosptailName": "","hospitalCode": "","province": "","city": ""}
-    And 分页设置 <分页策略>
+    When 请求 POST /hospital/list payload <分页策略>
     Then 状态码:200
-    And 返回值JSON数据:<返回JSON>
+    And 返回JSON断言:"<返回JSON>"
     Examples: 正向分页使用
-      | 分页策略                          | 返回JSON                              |
-      | {"pageNum": 1,"pageSize": 3}} | $.data[2].HospitalName == "深圳市人民医院" |
-      | {"pageNum": 2,"pageSize": 3}} | $.data[2].HospitalName ==  "仁爱妇产医院" |
+      | 分页策略                         | 返回JSON                              |
+      | {"pageNum": 1,"pageSize": 3} | $.data[2].HospitalName == "深圳市人民医院" |
+      | {"pageNum": 2,"pageSize": 3} | $.data[2].HospitalName ==  "仁爱妇产医院" |
     Examples: 分页大小*分页超出数据总数
-      | 分页策略                           | 返回JSON |
-      | {"pageNum": 3,"pageSize": 10}} | null   |
+      | 分页策略                          | 返回JSON |
+      | {"pageNum": 3,"pageSize": 10} | null   |
 #  {"hosptailName": "深圳市人民医院","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
 
   @search@P2

@@ -31,21 +31,36 @@ def step_impl(context, method, path, payload_data: str):
     request.set_header(context=context)
     # 存储返回信息到context
     context.response = request.send()
+    print(f"实际返回{context.response}")
 
 
 @then('状态码:{status_code}')
 def step_impl(context, status_code):
-    print(context.response.status_code)
+    print(f"期望状态码{status_code}")
+    print(f"实际状态码{context.response.status_code}")
     assert context.response.status_code == int(status_code)
 
 
-@then('返回值JSON数据:"{json_file}"')
-def step_impl(context, json_file):
+@then('返回值JSON数据:"{json_data}"')
+def step_impl(context, json_data: str):
+    # 根据json_data是否有.json后缀判断是否要读取json文件
+    if json_data.endswith('.json'):
+        except_json = load_json_file(json_data)
+    else:
+        # 当是不为.json的字符串时，直接解析为json
+        except_json = json.loads(json_data)
+
     # 期望返回
-    print(f"期望返回{load_json_file(json_file)}")
+    print(f"期望返回{except_json}")
     # 实际返回
     print(f"实际返回{context.response.json()}")
-    assert context.response.json() == load_json_file(json_file)
+    assert context.response.json() == except_json
+
+
+@then('返回JSON断言:"{json_assert}"')
+def step_impl(context, json_assert: str):
+
+    pass
 
 
 if __name__ == '__main__':

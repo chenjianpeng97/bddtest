@@ -11,10 +11,19 @@
 """
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+
+# 确保实例文件夹存在
+if not os.path.exists(app.instance_path):
+    os.makedirs(app.instance_path)
+print("Database path:", os.path.join(app.instance_path, 'test.db'))
+# 设置数据库 URI
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance_path, 'test.db')
+print(app.config['SQLALCHEMY_DATABASE_URI'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 
@@ -45,6 +54,7 @@ class HospitalGroup(db.Model):
     del_flag = db.Column(db.Integer, default=0)
 
 
+#
 # 创建数据库
 with app.app_context():
     db.create_all()
@@ -53,8 +63,11 @@ with app.app_context():
 # 查询医院主数据列表接口
 @app.route('/hospital/list', methods=['POST'])
 def get_hospital_list():
+
     # 对请求的处理
     try:
+        print("##########")
+        print(request)
         # 这里解析请求的 JSON 数据
         page_num = request.json.get('pageNum', 1)
         page_size = request.json.get('pageSize', 10)
@@ -90,7 +103,7 @@ def get_hospital_list():
 
         return jsonify(result), 200
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 5000
 
 
 if __name__ == '__main__':
