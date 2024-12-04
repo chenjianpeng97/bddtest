@@ -19,12 +19,11 @@ Feature: 获取医院主数据列表
     And 返回JSON断言:"<返回JSON>"
     Examples: 正向分页使用
       | 分页策略                         | 返回JSON                              |
-      | {"pageNum": 1,"pageSize": 3} | $.data[2].HospitalName == "深圳市人民医院" |
-      | {"pageNum": 2,"pageSize": 3} | $.data[2].HospitalName ==  "仁爱妇产医院" |
+      | {"pageNum": 1,"pageSize": 3} | $.data[2].hospitalName == "深圳市人民医院" |
+      | {"pageNum": 2,"pageSize": 3} | $.data[2].hospitalName ==  "仁爱妇产医院" |
     Examples: 分页大小*分页超出数据总数
-      | 分页策略                          | 返回JSON |
-      | {"pageNum": 3,"pageSize": 10} | null   |
-#  {"hosptailName": "深圳市人民医院","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
+      | 分页策略                          | 返回JSON            |
+      | {"pageNum": 3,"pageSize": 10} | $.data[0] == None |
 
   @search@P2
   Scenario Outline: 根据条件查询医院数据

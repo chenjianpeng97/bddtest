@@ -63,7 +63,6 @@ with app.app_context():
 # 查询医院主数据列表接口
 @app.route('/hospital/list', methods=['POST'])
 def get_hospital_list():
-
     # 对请求的处理
     try:
         print("##########")
@@ -100,7 +99,9 @@ def get_hospital_list():
                 for hospital_group in [HospitalGroup.query.get(hospital.hospital_group_id)]  # 直接查询医院集团
             ]
         }
-
+        # 打印实际请求,返回结果用于调试
+        print(f"请求数据: {request.json}")  # 打印实际请求,返回结果用于调试
+        print(f"查询结果: {result}")  # 打印实际请求,返回结果用于调试
         return jsonify(result), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 5000

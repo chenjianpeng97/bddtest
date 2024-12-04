@@ -12,7 +12,7 @@
 import requests
 import json
 from behave import given, when, then
-from common.json.json_handler import load_json_file
+from common.json.json_handler import load_json_file, assert_json
 from common.settings import PREFIX_URL as PREFIX
 from common.http.http_handler import Request
 
@@ -31,7 +31,7 @@ def step_impl(context, method, path, payload_data: str):
     request.set_header(context=context)
     # 存储返回信息到context
     context.response = request.send()
-    print(f"实际返回{context.response}")
+    print(f"实际返回{context.response.json()}")
 
 
 @then('状态码:{status_code}')
@@ -59,7 +59,7 @@ def step_impl(context, json_data: str):
 
 @then('返回JSON断言:"{json_assert}"')
 def step_impl(context, json_assert: str):
-
+    assert_json(json_data=context.response.json(), assert_str=json_assert)
     pass
 
 
