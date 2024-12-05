@@ -38,7 +38,9 @@ def after_step(context, step):
 
 
 def after_scenario(context, scenario):
-    pass
+    # 初始化测试库
+    # 场景后做测试库初始化，防止background给每个场景初始数据时重复插入数据
+    context.db.execute_sql_file("初始化测试环境库.sql")
 
 
 def after_feature(context, feature):
@@ -46,8 +48,6 @@ def after_feature(context, feature):
 
 
 def after_all(context):
-    # 初始化测试库
-    context.db.execute_sql_file("初始化测试环境库.sql")
     # 关闭释放数据库连接
     context.db.close()
     pass
