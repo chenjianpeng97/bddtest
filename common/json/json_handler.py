@@ -50,9 +50,10 @@ def assert_json(json_data: dict, assert_str: str) -> None:
     """
 
     :param json_data: json(dict)数据
-    :param assert_str: gherkin用例中字符串约定'{jsonpath_expression} {operator} {expect_value}'
+    :param assert_str: gherkin用例中字符串约定'{jsonpath_expression} {operator} {expect_value} {logic_operator} {jsonpath_expression} {operator} {expect_value}'
     :return:
     """
+
     # 解析assert_str,输入格式'jsonpath_expression '
     jsonpath_str, operator, expect_value = assert_str.split()
     # 如果expect_value是整数，则将其转换为int类型

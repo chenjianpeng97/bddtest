@@ -17,7 +17,7 @@ from common.settings import PREFIX_URL as PREFIX
 from common.http.http_handler import Request
 
 
-@given('标准payload {payload_data}')
+@given('默认payload {payload_data}')
 def step_impl(context, payload_data: str):
     context.stander_payload = json.loads(payload_data)
 

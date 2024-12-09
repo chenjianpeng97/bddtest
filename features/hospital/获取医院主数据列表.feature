@@ -4,7 +4,7 @@ Feature: 获取医院主数据列表
 
   Background:
     Given 系统已知医院列表"初始化医院主数据列表.sql"
-    And 标准payload {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
+    And 默认payload {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 10}
 
   @happy_path@P0
   Scenario: 成功获取医院主数据列表
@@ -48,13 +48,13 @@ Feature: 获取医院主数据列表
     Then 返回状态码!= 200
     Examples: 必填参数缺失
       | 传参                                                                               |
-      | {"hosptailName": "","hospitalCode": "","province": "","city": "","pageSize": 10} |
-      | {"hosptailName": "","hospitalCode": "","city": "","pageNum": 1}                  |
+      | {"hospitalName": "","hospitalCode": "","province": "","city": "","pageSize": 10} |
+      | {"hospitalName": "","hospitalCode": "","city": "","pageNum": 1}                  |
     Examples: 参数类型错误
       | 传参                                                                                              |
-      | {"hosptailName": "","hospitalCode": "","province": "","city": "","pageNum": "1","pageSize": 10} |
-      | {"hosptailName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": "10"} |
+      | {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": "1","pageSize": 10} |
+      | {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": "10"} |
     Examples: 参数传数值错误
       | 传参                                                                                            |
-      | {"hosptailName": "","hospitalCode": "","province": "","city": "","pageNum": -1,"pageSize": 1} |
-      | {"hosptailName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 0}  |
+      | {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": -1,"pageSize": 1} |
+      | {"hospitalName": "","hospitalCode": "","province": "","city": "","pageNum": 1,"pageSize": 0}  |
